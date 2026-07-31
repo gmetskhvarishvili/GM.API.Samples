@@ -13,7 +13,10 @@ a domain model, and an EF Core + PostgreSQL persistence layer — together with
 [GM.API.Application](https://www.nuget.org/packages/GM.API.Application),
 [GM.EntityFramework](https://www.nuget.org/packages/GM.EntityFramework),
 [GM.Mediator](https://www.nuget.org/packages/GM.Mediator) and
-[GM.Mapper](https://www.nuget.org/packages/GM.Mapper). Targets `net10.0`.
+[GM.Mapper](https://www.nuget.org/packages/GM.Mapper). The Swagger UI (and the custom
+`Assets/swagger.css` / `swagger.js`) comes from
+[GM.Documentation](https://www.nuget.org/packages/GM.Documentation), which `GM.API` pulls in
+transitively. Targets `net10.0`.
 
 ## Projects
 
@@ -32,8 +35,9 @@ Only the published **GM.*** packages are referenced — no project references in
 
 ## What it demonstrates
 
-- **`AddGMAPI` / `UseGMAPI`** wiring the whole request pipeline (CORS, versioning, Swagger, Serilog,
-  exception handling, request logging, localization) from `GM.API`.
+- **`AddGMAPI` / `UseGMAPI`** wiring the whole request pipeline (CORS, versioning, Serilog,
+  exception handling, request logging, localization) from `GM.API`, plus a versioned **Swagger UI**
+  from `GM.Documentation` (pulled in transitively), skinned with the sample's `Assets/swagger.css` / `swagger.js`.
 - **CQRS** — `CreateSample` / `UpdateSample` / `DeleteSample` commands and
   `GetSampleDetails` / `GetSamplesList` queries, dispatched through GM.Mediator.
 - **DDD persistence** — a `Sample` aggregate with child `SampleItem`s over the GM.EntityFramework
