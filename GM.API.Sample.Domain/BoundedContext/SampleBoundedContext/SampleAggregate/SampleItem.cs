@@ -14,11 +14,11 @@ public class SampleItem: SoftDeletableEntity<int>
         Description = description;
     }
     
-    public string Name { get; private set; }
-    public string Description { get; private set; }
-    
+    public string Name { get; private set; } = string.Empty;
+    public string Description { get; private set; } = string.Empty;
+
     public int SampleId { get; set; }
-    public API.Sample.Domain.BoundedContext.SampleBoundedContext.SampleAggregate.Sample Sample { get; set; }
+    public API.Sample.Domain.BoundedContext.SampleBoundedContext.SampleAggregate.Sample Sample { get; set; } = null!;
     
     public static SampleItem Create(
         string name,

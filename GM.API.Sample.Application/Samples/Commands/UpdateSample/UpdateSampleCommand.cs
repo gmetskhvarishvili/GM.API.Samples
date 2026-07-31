@@ -1,3 +1,4 @@
+using FluentValidation;
 using GM.API.Sample.Common.Resources;
 using GM.API.Sample.Domain.SeedWork;
 using GM.Exceptions;
@@ -10,6 +11,17 @@ public class UpdateSampleCommand : IRequest
     public int Id { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
+}
+
+/// <summary>Validates the update command; mirrors the persisted column limits.</summary>
+public class UpdateSampleCommandValidator : AbstractValidator<UpdateSampleCommand>
+{
+    public UpdateSampleCommandValidator()
+    {
+        RuleFor(x => x.Id).GreaterThan(0);
+        RuleFor(x => x.Name).NotEmpty().MaximumLength(100);
+        RuleFor(x => x.Description).NotEmpty().MaximumLength(250);
+    }
 }
 
 /// <summary>
@@ -48,10 +60,11 @@ public class UpdateSampleCommandHandler(IUnitOfWork unitOfWork) : IRequestHandle
             throw new AlreadyExistsException(
                 StringResource.Sample,
                 StringResource.Name,
-                request.Name);
+                request.Name!);
         }
 
-        entity.Update(request.Name, request.Description);
+        // name/description are guaranteed by UpdateSampleCommandValidator
+        entity.Update(request.Name!, request.Description!);
 
         // Persist the aggregate
         unitOfWork.SampleRepository.Update(entity);

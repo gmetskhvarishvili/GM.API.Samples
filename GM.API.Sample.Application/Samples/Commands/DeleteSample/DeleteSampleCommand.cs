@@ -1,3 +1,4 @@
+using FluentValidation;
 using GM.API.Sample.Common.Resources;
 using GM.API.Sample.Domain.SeedWork;
 using GM.Exceptions;
@@ -8,6 +9,15 @@ namespace GM.API.Sample.Application.Samples.Commands.DeleteSample;
 public class DeleteSampleCommand : IRequest
 {
     public int Id { get; set; }
+}
+
+/// <summary>Validates the delete command.</summary>
+public class DeleteSampleCommandValidator : AbstractValidator<DeleteSampleCommand>
+{
+    public DeleteSampleCommandValidator()
+    {
+        RuleFor(x => x.Id).GreaterThan(0);
+    }
 }
 
 public class DeleteSampleCommandHandler(IUnitOfWork unitOfWork) : IRequestHandler<DeleteSampleCommand>

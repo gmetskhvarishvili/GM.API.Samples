@@ -7,7 +7,7 @@ public class ApplicationDbContextSeed
     public async Task SeedAsync(ApplicationDbContext context,
         ILogger<ApplicationDbContextSeed> logger, int? retry = 0)
     {
-        int retryForAvaiability = retry.Value;
+        int retryForAvaiability = retry ?? 0;
 
         try
         {

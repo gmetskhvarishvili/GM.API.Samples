@@ -19,7 +19,7 @@ public abstract class DesignTimeDbContextFactoryBase<TContext> :
 
     protected abstract TContext CreateNewInstance(DbContextOptions<TContext> options);
 
-    private TContext Create(string basePath, string environmentName)
+    private TContext Create(string basePath, string? environmentName)
     {
         var configuration = new ConfigurationBuilder()
             .SetBasePath(basePath)
@@ -34,7 +34,7 @@ public abstract class DesignTimeDbContextFactoryBase<TContext> :
         return Create(connectionString);
     }
 
-    private TContext Create(string connectionString)
+    private TContext Create(string? connectionString)
     {
         if (string.IsNullOrEmpty(connectionString))
         {

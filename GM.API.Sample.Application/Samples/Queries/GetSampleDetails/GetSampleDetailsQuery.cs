@@ -1,3 +1,4 @@
+using FluentValidation;
 using GM.API.Sample.Common.Resources;
 using GM.API.Sample.Domain.SeedWork;
 using GM.Exceptions;
@@ -10,6 +11,15 @@ namespace GM.API.Sample.Application.Samples.Queries.GetSampleDetails;
 public class GetSampleDetailsQuery : IRequest<SampleDetailsDto>
 {
     public int Id { get; set; }
+}
+
+/// <summary>Validates the details query.</summary>
+public class GetSampleDetailsQueryValidator : AbstractValidator<GetSampleDetailsQuery>
+{
+    public GetSampleDetailsQueryValidator()
+    {
+        RuleFor(x => x.Id).GreaterThan(0);
+    }
 }
 
 public class GetSampleDetailsQueryHandler(IUnitOfWork unitOfWork)

@@ -23,11 +23,11 @@ using (var scope = app.Services.CreateScope())
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
         if (context != null)
         {
-            context.Database.Migrate();
+            await context.Database.MigrateAsync();
 
             var logger = scope.ServiceProvider.GetService<ILogger<ApplicationDbContextSeed>>();
             if (logger != null)
-                new ApplicationDbContextSeed().SeedAsync(context, logger).Wait();
+                await new ApplicationDbContextSeed().SeedAsync(context, logger);
         }
     }
     catch (Exception ex)

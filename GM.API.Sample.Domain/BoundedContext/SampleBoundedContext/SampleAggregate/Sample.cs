@@ -16,9 +16,9 @@ public class Sample : SoftDeletableEntity<int>, IAggregateRoot
         Description = description;
     }
     
-    public string Name { get; private set; }
-    public string Description { get; private set; }
-    
+    public string Name { get; private set; } = string.Empty;
+    public string Description { get; private set; } = string.Empty;
+
     public ICollection<SampleItem> SampleItems { get; private set; }
     
     public static Sample Create(

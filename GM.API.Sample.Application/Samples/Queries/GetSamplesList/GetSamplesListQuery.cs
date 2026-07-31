@@ -1,3 +1,4 @@
+using FluentValidation;
 using GM.API.Application.Models;
 using GM.API.Sample.Domain.SeedWork;
 using GM.EntityFramework.Domain.Specifications;
@@ -11,6 +12,18 @@ public class GetSamplesListQuery : GetBaseListQuery, IRequest<IEnumerable<Sample
     public int? Id { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
+}
+
+/// <summary>Validates the list query, primarily its paging bounds.</summary>
+public class GetSamplesListQueryValidator : AbstractValidator<GetSamplesListQuery>
+{
+    public GetSamplesListQueryValidator()
+    {
+        RuleFor(x => x.CurrentPage).GreaterThanOrEqualTo(1);
+        RuleFor(x => x.PageSize).InclusiveBetween(1, 100);
+        RuleFor(x => x.Name).MaximumLength(100);
+        RuleFor(x => x.Description).MaximumLength(250);
+    }
 }
 
 public class GetSamplesListQueryHandler(IUnitOfWork unitOfWork)
@@ -35,7 +48,7 @@ public class SampleDto
 public class
     SampleSpecification : BaseSpecification<Sample.Domain.BoundedContext.SampleBoundedContext.SampleAggregate.Sample>
 {
-    public SampleSpecification(int? id, string? name, string? description, int currentPage, int pageSize, string orderBy)
+    public SampleSpecification(int? id, string? name, string? description, int currentPage, int pageSize, string? orderBy)
     {
         AddVisibilityFilter();
 
@@ -47,9 +60,10 @@ public class
 
         if (!string.IsNullOrWhiteSpace(description))
             AddCriteria(s => s.Description.Contains(description));
-        
+
         ApplyPaging(currentPage, pageSize);
-        
-        ApplyOrdering(orderBy);
+
+        if (!string.IsNullOrWhiteSpace(orderBy))
+            ApplyOrdering(orderBy);
     }
 }
