@@ -1,0 +1,21 @@
+## .NET / Visual Studio / Rider
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+artifacts/
+*.user
+*.suo
+.vs/
+
+## Rider
+.idea/
+
+## Build / test output
+[Tt]est[Rr]esults/
+*.trx
+*.coverage
+*.coveragexml
+
+## Serilog file output
+logs/

@@ -1,0 +1,6 @@
+@GM.API.Sample.API_HostAddress = http://localhost:5061
+
+GET {{GM.API.Sample.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
