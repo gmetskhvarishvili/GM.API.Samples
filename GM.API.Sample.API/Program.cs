@@ -1,6 +1,7 @@
 using GM.API.Sample.Persistence;
 using GM.API.Sample.Persistence.Context;
 using GM.API.Startup;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 
 var builder = ProgramExtension.CreateGMBuilder(args);
@@ -11,10 +12,15 @@ builder.Services.ConfigureGMServices(
     "SwaggerDocOptions");
 
 builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
 app.UseGMServices();
+
+// Liveness never depends on downstream dependencies; readiness runs the registered checks.
+app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false });
+app.MapHealthChecks("/health/ready");
 
 using (var scope = app.Services.CreateScope())
 {
@@ -37,4 +43,4 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.Run();
+await app.RunAsync();

@@ -5,6 +5,7 @@
     <File Path="LICENSE" />
   </Folder>
   <Folder Name="/Solution Items/Build/">
+    <File Path="Directory.Build.props" />
     <File Path=".editorconfig" />
     <File Path=".gitattributes" />
     <File Path=".gitignore" />

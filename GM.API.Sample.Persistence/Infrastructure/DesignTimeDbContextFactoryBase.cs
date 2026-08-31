@@ -13,7 +13,7 @@ public abstract class DesignTimeDbContextFactoryBase<TContext> :
 
     public TContext CreateDbContext(string[] args)
     {
-        var basePath = Directory.GetCurrentDirectory() + string.Format("{0}..{0}GM.API.Sample.API", Path.DirectorySeparatorChar);
+        var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "GM.API.Sample.API");
         return Create(basePath, Environment.GetEnvironmentVariable(AspNetCoreEnvironment));
     }
 

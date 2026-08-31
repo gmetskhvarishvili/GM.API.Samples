@@ -4,12 +4,14 @@
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <!-- Resource fallback culture for the embedded .resx files below. -->
+        <NeutralLanguage>en</NeutralLanguage>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="GM.Exceptions" Version="1.2.1" />
+      <PackageReference Include="GM.Exceptions" Version="1.2.2" />
       <!-- Replaces a hard-coded path to a shared-framework DLL. -->
-      <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="10.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="10.0.11" />
     </ItemGroup>
 
     <ItemGroup>
