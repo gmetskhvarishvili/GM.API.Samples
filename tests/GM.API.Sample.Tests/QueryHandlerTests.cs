@@ -28,7 +28,7 @@ public class QueryHandlerTests
 
         Assert.Equal("Alpha", dto.Name);
         Assert.NotNull(dto.SampleItems);
-        Assert.Single(dto.SampleItems!);
+        Assert.Single(dto.SampleItems);
     }
 
     [Fact]

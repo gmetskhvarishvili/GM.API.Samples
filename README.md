@@ -43,6 +43,9 @@ Only the published **GM.*** packages are referenced — no project references in
 - **DDD persistence** — a `Sample` aggregate with child `SampleItem`s over the GM.EntityFramework
   generic repository / unit-of-work / specification base, with soft-delete and audit stamping.
 - **Mapster projection** to DTOs.
+- **Health endpoints** — `/health/live` (process liveness, no downstream dependencies) and
+  `/health/ready` (registered health checks), wired via the standard ASP.NET Core health check
+  middleware.
 
 ## Requirements
 
