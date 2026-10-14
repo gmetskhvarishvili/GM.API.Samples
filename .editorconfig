@@ -33,3 +33,8 @@ dotnet_style_coalesce_expression = true:suggestion
 dotnet_style_qualification_for_field = false:suggestion
 dotnet_style_qualification_for_property = false:suggestion
 dotnet_style_readonly_field = true:suggestion
+
+# EF Core migrations are scaffolded by `dotnet ef`: treat them as generated code so analyzers
+# (warnings-as-errors) do not fail the build on tool output.
+[**/Migrations/*.cs]
+generated_code = true
