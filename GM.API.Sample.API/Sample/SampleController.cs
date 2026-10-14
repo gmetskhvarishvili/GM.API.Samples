@@ -78,7 +78,9 @@ public class SampleController : BaseController
     }
 
     /// <summary>
-    /// Get Samples List
+    /// Get Samples List. Pages by <c>CurrentPage</c> (page 1 by default), or — when <c>LastKeyValue</c> is sent —
+    /// returns the samples after the one identified by <c>LastKeyProperty</c> (<c>Id</c> by default) +
+    /// <c>LastKeyValue</c>, in <c>OrderBy</c> order. Paging metadata is in the <c>X-Pagination</c> header.
     /// </summary>
     /// <param name="request">Sample Model to Get</param>
     /// <param name="cancellationToken"></param>
@@ -91,7 +93,9 @@ public class SampleController : BaseController
     {
         var query = request.Adapt<GetSamplesListQuery>();
         var response = await Mediator.Send(query, cancellationToken);
-        var result = response.Adapt<IEnumerable<SampleModel>>();
+        var result = response.Items.Adapt<IEnumerable<SampleModel>>();
+        AddPaginationHeader(response.TotalCount, response.PageSize, response.CurrentPage, response.TotalPages,
+            response.LastKeyProperty, response.LastKeyValue, response.HasMore);
         return Ok(result);
     }
 

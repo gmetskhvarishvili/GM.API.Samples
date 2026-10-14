@@ -42,6 +42,12 @@ Only the published **GM.*** packages are referenced — no project references in
   `GetSampleDetails` / `GetSamplesList` queries, dispatched through GM.Mediator.
 - **DDD persistence** — a `Sample` aggregate with child `SampleItem`s over the GM.EntityFramework
   generic repository / unit-of-work / specification base, with soft-delete and audit stamping.
+- **List paging** — `GetSamplesList` (on GM.API's `GetBaseListModel` / `GetBaseListQuery`) pages by
+  `CurrentPage` (page 1 by default) or, when `LastKeyValue` is sent, returns the samples after the one
+  identified by `LastKeyProperty` (`Id` by default) + `LastKeyValue`, in `OrderBy` order
+  (e.g. `?LastKeyProperty=Name&LastKeyValue=B&OrderBy=Id%20desc`). `IncludeTotalCount=false` skips the
+  count query. The body is the samples; `X-Pagination` carries `totalCount`, `pageSize`, `currentPage`
+  (0 when paged by key), `totalPages`, `lastKeyProperty`, `lastKeyValue` and `hasMore`.
 - **Mapster projection** to DTOs.
 - **Health endpoints** — `/health/live` (process liveness, no downstream dependencies) and
   `/health/ready` (registered health checks), wired via the standard ASP.NET Core health check

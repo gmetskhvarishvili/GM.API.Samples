@@ -88,4 +88,15 @@ public class ValidatorTests
 
         Assert.Equal(valid, result.IsValid);
     }
+
+    [Fact]
+    public void GetList_does_not_need_a_page_number_when_paging_by_last_key_value()
+    {
+        var result = new GetSamplesListQueryValidator().Validate(new GetSamplesListQuery
+        {
+            CurrentPage = 0, PageSize = 10, LastKeyValue = "5"
+        });
+
+        Assert.True(result.IsValid);
+    }
 }
