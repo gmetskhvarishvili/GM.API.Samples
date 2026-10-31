@@ -11,6 +11,9 @@ artifacts/
 ## Rider
 .idea/
 
+## Local secrets (GM.Secrets' appsecrets layer)
+appsecrets*.json
+
 ## Build / test output
 [Tt]est[Rr]esults/
 *.trx

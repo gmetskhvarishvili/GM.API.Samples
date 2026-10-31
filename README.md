@@ -52,6 +52,11 @@ Only the published **GM.*** packages are referenced — no project references in
 - **Health endpoints** — `/health/live` (process liveness, no downstream dependencies) and
   `/health/ready` (registered health checks), wired via the standard ASP.NET Core health check
   middleware.
+- **Secrets** — `CreateGMBuilder` layers secrets into configuration (GM.Secrets): a gitignored
+  `GM.API.Sample.API/appsecrets.json` overrides `appsettings.json` locally — e.g. put your real
+  `ConnectionStrings:ApplicationDatabase` there — and when deployed `SECRETS_PROVIDER` loads them from
+  Doppler, AWS Secrets Manager, Azure Key Vault or Vault (plus that store's own environment variables).
+  The app code just reads configuration.
 
 ## Requirements
 
